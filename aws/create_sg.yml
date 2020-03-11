@@ -1,3 +1,4 @@
+# creates security group
 ---
 - hosts: localhost
   gather_facts: no
@@ -8,7 +9,7 @@
     - name: create a security Group
       ec2_group:
         name: test_sg
-        description: Security group for Lab EC2 instances
+        description: Security group for test env
         vpc_id: "{{ vpc }}"
         rules:
           - proto: tcp

@@ -1,3 +1,4 @@
+#create x number of EC2 instances
 ---
 - hosts: localhost
   gather_facts: no

@@ -1,3 +1,4 @@
+# stops running EC2 instance
 ---
 - hosts: localhost
   gather_facts: no

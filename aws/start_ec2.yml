@@ -1,3 +1,4 @@
+# starts a stopped EC2 instance
 ---
 - hosts: localhost
   connection: local
