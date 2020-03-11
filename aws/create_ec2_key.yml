@@ -1,0 +1,17 @@
+---
+- hosts : localhost
+  gather_facts: no
+  tasks:
+    - name: create new key pair
+      ec2_key:
+        name: ec2_key
+      register: keypair
+    - debug:
+        var: keypair
+
+    - name: save key pair to file locally
+      lineinfile:
+        create: yes
+        path: /home/ansible/ec2_key.pem
+        line: "{{ keypair.key.private_key }}"
+        mode: 0600

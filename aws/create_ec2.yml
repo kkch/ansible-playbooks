@@ -1,0 +1,30 @@
+---
+- hosts: localhost
+  gather_facts: no
+  connection: local
+  vars:
+    group: test_sg
+    tag: {env: test}
+    image: ami-0c322300a1dd5dc79
+    subnet_id: subnet-01923a0bb0dd96c57
+  tasks:
+    - name: Create EC2 Instances 
+      ec2:
+        key_name: ec2_key
+        group: "{{ group }}" 
+        instance_type: t2.micro
+        image: "{{ image  }}"
+        vpc_subnet_id: "{{ subnet_id }}" 
+        assign_public_ip: yes
+        wait: yes
+        count: 3
+        instance_tags: "{{tag}}"
+      register: ec2
+    - debug:
+        var: ec2
+
+    - name: Add hosts to inventory
+      add_host:
+        hostname: "{{ item.public_ip }}"
+        groupname: test
+      loop: "{{ec2.instances}}"

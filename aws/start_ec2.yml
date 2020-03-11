@@ -1,0 +1,15 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: no
+  var: 
+    tag: {env: test}
+  tasks:
+    - name: Start stopped EC2 instances
+      ec2:
+        instance_tags: "{{tag}}"
+        state: running
+        wait: yes
+      register: ec2
+    - debug:
+        var: ec2

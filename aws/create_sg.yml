@@ -1,0 +1,21 @@
+---
+- hosts: localhost
+  gather_facts: no
+  connection: local
+  vars:
+    vpc: vpc-0d19bea1aff4b820a
+  tasks:
+    - name: create a security Group
+      ec2_group:
+        name: test_sg
+        description: Security group for Lab EC2 instances
+        vpc_id: "{{ vpc }}"
+        rules:
+          - proto: tcp
+            from_port: 80
+            to_port: 80
+            cidr_ip: 0.0.0.0/0
+          - proto: tcp
+            from_port: 22
+            to_port: 22
+            cidr_ip: 0.0.0.0/0 #lock it down to private ip

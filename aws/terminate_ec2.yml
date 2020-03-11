@@ -1,0 +1,13 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: no
+  vars:
+    instance_ids:
+      - i-0c35ab633e34a6108 
+  tasks:
+    - name: terminate launched EC2 Instances
+      ec2:
+        state: absent
+        instance_ids: "{{instance_ids}}"
+        wait: yes
